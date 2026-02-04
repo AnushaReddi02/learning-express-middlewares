@@ -3,9 +3,16 @@ const app = express();
 
 
 
-app.use((req,res)=>{
-    console.log("Hey....I am a MIDDLEWARE");
-    res.send("Middleware finished");
+app.use((req,res,next)=>{
+    console.log("Hey....I am a 1st MIDDLEWARE");
+    // res.send("Middleware finished");
+    next();
+});
+
+app.use((req,res,next)=>{
+    console.log("Hey....I am a 2nd MIDDLEWARE");
+    // res.send("Middleware finished");
+    next();
 });
 
 app.get("/",(req,res)=>{
