@@ -21,6 +21,11 @@ app.use((req,res,next)=>{
     req.time = new Date(Date.now()).toString();
     console.log(req.host,req.method,req.path,req.time);
     next();
+});
+
+app.use("/random",(req,res,next)=>{
+    console.log("I am only for RANDOM");
+    next();
 })
 
 app.get("/",(req,res)=>{
