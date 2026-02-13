@@ -23,6 +23,18 @@ app.use((req,res,next)=>{
     next();
 });
 
+//middleware to validate token query parameter and protect /api endpoint from unauthorized access
+app.use("/api",(req,res,next)=>{
+    let {token} = req.query;
+    if(token==="USERALLOWED")
+        next();
+    res.send("!!! ACESS DENIED !!!");
+});
+
+
+app.get("/api",(req,res)=>{
+    res.send("USER IS VERIFIED & CAN ACESS DATA");
+});
 app.use("/random",(req,res,next)=>{
     console.log("I am only for RANDOM");
     next();
