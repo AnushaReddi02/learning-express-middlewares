@@ -24,15 +24,23 @@ app.use((req,res,next)=>{
 });
 
 //middleware to validate token query parameter and protect /api endpoint from unauthorized access
-app.use("/api",(req,res,next)=>{
+// app.use("/api",(req,res,next)=>{
+//     let {token} = req.query;
+//     if(token==="USERALLOWED")
+//         next();
+//     res.send("!!! ACESS DENIED !!!");
+// });
+
+//
+const accessToken = ("/api",(req,res,next)=>{
     let {token} = req.query;
-    if(token==="USERALLOWED")
-        next();
+    if(token==="USERALLOWED"){
+         return next();
+    }
     res.send("!!! ACESS DENIED !!!");
 });
 
-
-app.get("/api",(req,res)=>{
+app.get("/api",accessToken,(req,res)=>{
     res.send("USER IS VERIFIED & CAN ACESS DATA");
 });
 app.use("/random",(req,res,next)=>{
