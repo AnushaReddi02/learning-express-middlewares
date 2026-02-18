@@ -56,6 +56,24 @@ app.get("/random",(req,res)=>{
     res.send("I am a RANDOM route");
 });
 
+app.get("/err",(req,res)=>{
+    abcd = abcd;
+});
+
+
+//CUSTOM ERROR HANDLER - 1
+app.use((err,req,res,next)=>{
+    console.log("_____________ERROR1___________");
+    next(err) //Passing control to next error handler if exists or to the Express default error handler
+});
+
+
+//CUSTOM ERROR HANDLER - 2
+app.use((err,req,res,next)=>{
+    console.log("_____________ERROR1___________");
+    next(err); //Passing control to next error handler if exists or to the Express default error handler
+})
+
 app.listen(8080,()=>{
     console.log("Listening at port 8080");
 });
