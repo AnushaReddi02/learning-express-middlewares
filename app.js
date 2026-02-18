@@ -58,6 +58,16 @@ app.get("/random",(req,res)=>{
     res.send("I am a RANDOM route");
 });
 
+app.get("/admin",(req,res)=>{
+    let {token} = req.query;
+    if(token==="Admin"){
+        res.send("WELCOME TO ADMIN PAGE....!");
+    }
+    else{
+        throw new CustomErrorClass(403,"!!! Only Admins Can Access This Page !!!");
+    }
+});
+
 app.get("/err",(req,res)=>{
     abcd = abcd;
 });
