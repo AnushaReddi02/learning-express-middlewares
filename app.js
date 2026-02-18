@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const CustomErrorClass = require("./CustomErrorClass");
 
 
 
@@ -37,7 +38,8 @@ const accessToken = ("/api",(req,res,next)=>{
     if(token==="USERALLOWED"){
          return next();
     }
-    res.send("!!! ACESS DENIED !!!");
+    // res.send("!!! ACESS DENIED !!!");
+    throw new CustomErrorClass(401,"!!! ACESS DENIED !!!"); //calling our custom error handler class;
 });
 
 app.get("/api",accessToken,(req,res)=>{
@@ -64,15 +66,17 @@ app.get("/err",(req,res)=>{
 //CUSTOM ERROR HANDLER - 1
 app.use((err,req,res,next)=>{
     console.log("_____________ERROR1___________");
-    next(err) //Passing control to next error handler if exists or to the Express default error handler
+    //next(err) //Passing control to next error handler if exists or to the Express default error handler
+
+    res.send(err);
 });
 
 
 //CUSTOM ERROR HANDLER - 2
-app.use((err,req,res,next)=>{
-    console.log("_____________ERROR1___________");
-    next(err); //Passing control to next error handler if exists or to the Express default error handler
-})
+// app.use((err,req,res,next)=>{
+//     console.log("_____________ERROR1___________");
+//     next(err); //Passing control to next error handler if exists or to the Express default error handler
+// })
 
 app.listen(8080,()=>{
     console.log("Listening at port 8080");
