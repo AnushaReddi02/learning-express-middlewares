@@ -65,10 +65,12 @@ app.get("/err",(req,res)=>{
 
 //CUSTOM ERROR HANDLER - 1
 app.use((err,req,res,next)=>{
+    let {status=500,message="Some Error Occured"} = err; //Extracting values of status and message from err object through destructuring.
     console.log("_____________ERROR1___________");
     //next(err) //Passing control to next error handler if exists or to the Express default error handler
 
-    res.send(err);
+    // res.send(err);
+    res.status(status).send(message);
 });
 
 
